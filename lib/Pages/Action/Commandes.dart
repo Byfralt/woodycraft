@@ -172,24 +172,33 @@ class _CommandesState extends State<Commandes> {
                             ),
                             Row(
                               children: [
-                                Text(
-                                  '${firstCommande['forename']} ${firstCommande['surname']}',
-                                  style: const TextStyle(
-                                    fontSize: 14.0,
-                                  ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      '${firstCommande['forename']} ${firstCommande['surname']}',
+                                      style: const TextStyle(
+                                        fontSize: 14.0,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 5.0),
+                                    Text(
+                                      'Date: ${formatDate(firstCommande['date'])}',
+                                      style: const TextStyle(
+                                        fontSize: 14.0,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                const SizedBox(width: 5.0),
-                                Text(
-                                  'Date: ${formatDate(firstCommande['date'])}',
-                                  style: const TextStyle(
-                                    fontSize: 14.0,
-                                  ),
-                                ),
+                                
+                                
                               ],
                             ),
                             Row(
-                              
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.end,
                               children: [
+                               
+                               
                                 ElevatedButton(
                                   onPressed: () {
                                     updateCommandeStatus(
@@ -199,6 +208,7 @@ class _CommandesState extends State<Commandes> {
                                   },
                                   child: const Text('Valider'),
                                 ),
+                                SizedBox(width: 10,),
                                 ElevatedButton(
                                   onPressed: () {
                                     // Mettre à jour le statut de la commande à "En cours"
@@ -209,6 +219,7 @@ class _CommandesState extends State<Commandes> {
                                   },
                                   child: const Text('En cours'),
                                 ),
+                                SizedBox(width: 100,),
                                 Container(
                                   width: 20,
                                   height: 20,
@@ -218,10 +229,11 @@ class _CommandesState extends State<Commandes> {
                                   ),
                                 ),
                               ],
-                            )         
-                          ], 
-                        ),
-                      ],
+                            ),    
+                            
+                          ],
+                        )
+                      ], 
                     ),
                   );
                 },
