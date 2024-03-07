@@ -19,6 +19,15 @@ class _CommandesState extends State<Commandes> {
     fetchCommandes();
   }
 
+  // Méthode pour trier les commandes de la plus récente à la plus ancienne
+  void sortCommandes() {
+    commandes.sort((a, b) {
+      DateTime dateA = DateTime.parse(a['date']);
+      DateTime dateB = DateTime.parse(b['date']);
+      return dateB.compareTo(dateA);
+    });
+  }
+
   // Méthode pour charger les commandes
   Future<void> fetchCommandes() async {
     final response =
@@ -26,6 +35,7 @@ class _CommandesState extends State<Commandes> {
     if (response.statusCode == 200) {
       setState(() {
         commandes = json.decode(response.body);
+        sortCommandes(); // Appel de la méthode pour trier les commandes
       });
     } else {
       throw Exception('Erreur lors de la récupération des commandes');
