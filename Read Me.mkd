@@ -1,0 +1,8 @@
+npm install express
+npm install mysql
+
+Faire le server
+-> node server.js
+
+Color:
+Vert de fond: 2DC392
