@@ -176,7 +176,7 @@ class _StocksState extends State<Stocks> {
                       const Text(
                         '📢​ Plus de stock',
                         style: TextStyle(
-                          color: Colors.red,
+                          color: Color.fromARGB(255, 172, 33, 33),
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
