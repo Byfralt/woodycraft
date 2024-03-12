@@ -75,6 +75,54 @@ app.get('/produits', (req, res) => {
     });
 });
 
+// ______________________ DELETE ONE PRODUCT ______________________
+
+app.delete('/produits/delete/:productId', (req, res) => {
+  const productId = req.params.productId;
+  const query = `DELETE FROM produits WHERE id = ?`;
+
+  db.query(query, [productId], (err) => {
+    if (err) {
+      console.log(err)
+      throw err;
+    }
+    res.status(200).json({ message: `Produit avec l'ID ${productId} à été supprimé avec succès` });
+  });
+});
+
+// ______________________ UPDATE ONE PRODUCT ______________________
+
+app.put('/produits/update/:productId', (req, res) => {
+  const productId = req.params.productId;
+  const { name, price, describe } = req.body;
+
+  const query = 'UPDATE produits SET name = ?, price = ?, description = ? WHERE id = ?';
+  db.query(query, [name, price, describe, productId], (err, result) => {
+    if (err) {
+      throw err;
+    }
+    console.log(`Produit avec l'ID ${productId} mis à jour avec succès`);
+    res.status(200).json({ message: `Produit avec l'ID ${productId} mis à jour avec succès` });
+  });
+});
+
+// ______________________ ADD ONE PRODUCT ______________________
+
+app.post('/produits/add', (req, res) => {
+  const { stock, price, describe, name, image, cat } = req.body;
+
+  const query = 'INSERT INTO produits (name,description,image,cat_id,price,stock) VALUE (?,?,?,?,?,?)';
+
+  db.query(query, [name, describe, image, cat, price, stock], (err) => {
+    if (err) {
+      throw err;
+    }
+    console.log(`Produit ajouté avec succès`);
+    res.status(200).json({ message: `Produit ajouté avec succès` });
+  });
+
+})
+
 // ______________________ UPDATE STOCKS ______________________
 
 app.put('/produits/:productId', (req, res) => {

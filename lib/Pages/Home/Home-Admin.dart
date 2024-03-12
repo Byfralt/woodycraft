@@ -16,6 +16,131 @@ class _HomeAdminState extends State<HomeAdmin> {
   double totalPriceOfCommands = 0.0;
   double totalPriceOfLastCommand = 0.0;
 
+ void showAddDialog() {
+  double newPrice = 1;
+  String newName = "";
+  String newDescription = "";
+  String newImage = "";
+  int newStock = 1;
+  int newCat = 1;
+
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      final Size size = MediaQuery.of(context).size;
+      return Dialog(
+        backgroundColor: Colors.white,
+        insetPadding: EdgeInsets.zero,
+        child: SizedBox(
+          width: size.width,
+          height: size.height,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: size.width,
+                  height: size.height,
+                  color: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.all(40.0),
+                    child: Column(
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.all(20),
+                          child: Text(
+                            'Ajouter un Produit',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 25,
+                              color: Color(0xFF2DC392),
+                            ),
+                          ),
+                        ),
+                        TextFormField(
+                          initialValue: "",
+                          decoration: const InputDecoration(labelText: 'Image'),
+                          onChanged: (value) {
+                            newImage = value;
+                          },
+                        ),
+                        TextFormField(
+                          initialValue: "",
+                          decoration: const InputDecoration(labelText: 'Nom'),
+                          onChanged: (value) {
+                            newName = value;
+                          },
+                        ),
+                        TextFormField(
+                          initialValue: "",
+                          keyboardType: TextInputType.number,
+                          decoration: const InputDecoration(labelText: 'Prix'),
+                          onChanged: (value) {
+                            newPrice = double.tryParse(value) ?? 1;
+                          },
+                        ),
+                        TextFormField(
+                          initialValue: "",
+                          decoration: const InputDecoration(labelText: 'Description'),
+                          onChanged: (value) {
+                            newDescription = value;
+                          },
+                        ),
+                        TextFormField(
+                          initialValue: "",
+                          keyboardType: TextInputType.number,
+                          decoration: const InputDecoration(labelText: 'Stock'),
+                          onChanged: (value) {
+                            newStock = int.parse(value);
+                          },
+                        ),
+                        TextFormField(
+                          initialValue: "",
+                          keyboardType: TextInputType.number,
+                          decoration: const InputDecoration(labelText: 'Catégorie'),
+                          onChanged: (value) {
+                            newCat = int.parse(value);
+                          },
+                        ),
+                        const SizedBox(height: 20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text('Annuler', style: TextStyle(
+                                color: Colors.black,
+                                 fontSize: 20,
+                              ),)
+                            ),
+                            ElevatedButton(
+                              onPressed: () {
+                                addOneProduct(newName, newPrice, newDescription, newStock, newImage, newCat);
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text('Enregistrer', style: TextStyle(
+                                color: const Color(0xFF2DC392),
+                                fontSize: 20,
+                              ),),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    },
+  );
+}
+
+
   @override
   void initState() {
     super.initState();
@@ -23,6 +148,29 @@ class _HomeAdminState extends State<HomeAdmin> {
     fetchLowStockProducts();
     fetchTotalPriceOfCommands();
   }
+
+  Future<void> addOneProduct(String newName, double newPrice, String newDescription, int newStock, String newImage, int newCat) async {
+    final response = await http.post(
+      Uri.parse('http://10.0.2.2:3000/produits/add'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, dynamic>{
+        'name': newName,
+        'price': newPrice,
+        'describe': newDescription,
+        'stock': newStock,
+        'image': newImage,
+        'cat': newCat
+      }),
+    );
+    if (response.statusCode == 200) {
+      print("ok");
+    } else {
+      throw Exception('Échec de la mise à jour du produit');
+    }
+  }
+
   // NOMBRE DE COMMANDE EN COURS
   Future<void> fetchCommandesEnCours() async {
     final response = await http.get(Uri.parse('http://10.0.2.2:3000/orders'));
@@ -56,6 +204,7 @@ class _HomeAdminState extends State<HomeAdmin> {
     double total = 0.0;
     double lastCommandTotal = 0.0;
     if (commandes.isNotEmpty) {
+
       // Boucle pour calculer le total de chaque commande
       commandes.forEach((commande) {
         total += (commande['total'] is int) ? commande['total'].toDouble() : commande['total'];
@@ -389,7 +538,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                                             
                                           ),
                                           const Text(
-                                            'Recette total', 
+                                            'Recettes des \n commandes', 
                                             
                                             textAlign: TextAlign.center,
                                           ),
@@ -425,7 +574,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                                           textAlign: TextAlign.center,
                                         ),
                                         const Text(
-                                          'Last commande', 
+                                          'Dernière \n commande', 
                                           textAlign: TextAlign.center,
                                         ),
                                       ],
@@ -443,7 +592,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                               children: [
                                 GestureDetector(
                                   onTap: () {
-                                    Navigator.pushNamed(context, '/home_admin');
+                                    Navigator.pushNamed(context, '/showdata');
                                   },
                                   child: Container(
                                     width:125,
@@ -463,16 +612,16 @@ class _HomeAdminState extends State<HomeAdmin> {
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
-                                        Icon(Icons.delete,color:Color(0xFF2DC392),),
+                                        Icon(Icons.update,color:Color(0xFF2DC392),),
                                         SizedBox(height: 10,),
-                                        Text("Supprimer\n un produit",style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)), textAlign: TextAlign.center,),
+                                        Text("Afficher \n les produits",style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)), textAlign: TextAlign.center,),
                                       ],
                                     )
                                   ),
                                 ),
                                 GestureDetector(
                                   onTap: () {
-                                    Navigator.pushNamed(context, '/home_admin');
+                                    showAddDialog();
                                   },
                                   child: Container(
                                     width:125,

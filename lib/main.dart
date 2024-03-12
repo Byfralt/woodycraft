@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:woody/Pages/Action/Commandes.dart';
 import 'package:woody/Pages/Action/Stocks.dart';
+import 'package:woody/Pages/Action/Showdata.dart';
 import 'package:woody/Pages/Home/Home-Admin.dart';
 
 
@@ -41,13 +42,11 @@ class MyApp extends StatelessWidget {
         // Route Actions
         '/commandes': (context) => const Commandes(),
         '/stocks': (context) => const Stocks(),
+        '/showdata': (context) => const Showdata(),
       },
     );
   }
 }
 
-<<<<<<< HEAD
-// ceci est un teste github
-=======
 // test
->>>>>>> kyllian
+

@@ -65,6 +65,12 @@ class CustomDrawer extends StatelessWidget {
               Navigator.pushNamed(context, '/stocks');
             },
           ),
+          ListTile(
+            title: const Text('Nos Produits'),
+            onTap: () {
+              Navigator.pushNamed(context, '/showdata');
+            },
+          ),
         ],
       ),
     );
