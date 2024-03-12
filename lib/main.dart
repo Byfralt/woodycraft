@@ -30,6 +30,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/home_admin',
       routes: {
+
         // Route avant connexion
         '/': (context) => const HomeScreen(),
         '/Formulaire': (context) => const FormScreen(),
@@ -43,6 +44,7 @@ class MyApp extends StatelessWidget {
         '/commandes': (context) => const Commandes(),
         '/stocks': (context) => const Stocks(),
         '/showdata': (context) => const Showdata(),
+        
       },
     );
   }

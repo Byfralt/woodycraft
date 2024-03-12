@@ -72,7 +72,7 @@ class _CommandesState extends State<Commandes> {
   // Méthode pour formater la date
   String formatDate(String dateString) {
     DateTime dateTime = DateTime.parse(dateString);
-    return '${dateTime.day}/${dateTime.month}/${dateTime.year}';
+    return '${dateTime.day + 1}/${dateTime.month}/${dateTime.year}';
   }
 
   // Méthode pour mettre à jour le statut de la commande
