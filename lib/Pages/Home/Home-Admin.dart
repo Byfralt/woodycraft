@@ -94,14 +94,34 @@ class _HomeAdminState extends State<HomeAdmin> {
                             newStock = int.parse(value);
                           },
                         ),
-                        TextFormField(
-                          initialValue: "",
-                          keyboardType: TextInputType.number,
+                        DropdownButtonFormField<int>(
+                          value: newCat,
                           decoration: const InputDecoration(labelText: 'Catégorie'),
                           onChanged: (value) {
-                            newCat = int.parse(value);
+                            setState(() {
+                              newCat = value ?? 1;
+                            });
                           },
+                          items: const [
+                            DropdownMenuItem<int>(
+                              value: 1,
+                              child: Text('Véhicule'),
+                            ),
+                            DropdownMenuItem<int>(
+                              value: 2,
+                              child: Text('Instrument'),
+                            ),
+                             DropdownMenuItem<int>(
+                              value: 3,
+                              child: Text('Steampunk'),
+                            ),
+                            DropdownMenuItem<int>(
+                              value: 4,
+                              child: Text('Autre'),
+                            ),
+                          ],
                         ),
+
                         const SizedBox(height: 20),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
