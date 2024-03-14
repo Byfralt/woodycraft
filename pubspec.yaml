@@ -37,6 +37,7 @@ dependencies:
   http: ^1.2.0
   lottie: ^3.0.0
   git: 2.2.1
+  flutter_local_notifications: ^17.0.0
 
 
 dev_dependencies:
