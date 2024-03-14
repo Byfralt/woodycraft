@@ -200,10 +200,10 @@ class HomeWoodycraft extends StatelessWidget {
                           height: 10,
                         ),
                         const Text(
-                          'Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l\'imprimerie depuis les années 1500, quand un imprimeur anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte.',
+                          "L'application Admin Woodycraft modernise la gestion des commandes de puzzles faits main. Avec une interface intuitive et des fonctionnalités avancées, elle simplifie l'achat et le suivi des produits uniques. Découvrez une nouvelle façon de commander des puzzles artistiques. Bienvenue chez Woodycraft, où chaque commande devient une œuvre d'art.",
                           textAlign: TextAlign.justify,
                           style: TextStyle(
-                            fontSize: 12,
+                            fontSize: 13,
                           ),
                         ),
                         const SizedBox(
@@ -243,7 +243,7 @@ class HomeWoodycraft extends StatelessWidget {
                                       height: 10,
                                     ),
                                     const Text(
-                                      'depuis les années 1500, quand un imprimeur anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte.depuis les années 1500, quand un imprimeur anonyme assembla ensemble des morceaux de texte',
+                                      'Depuis l\'interface admin de Woodycraft, sélectionnez les produits à expédier, préparez les emballages et générez les étiquettes d\'expédition pour finaliser les envois rapidement et efficacement.',
                                       textAlign: TextAlign.justify,
                                     ),
                                     const SizedBox(

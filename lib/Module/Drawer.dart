@@ -71,6 +71,7 @@ class CustomDrawer extends StatelessWidget {
               Navigator.pushNamed(context, '/showdata');
             },
           ),
+          Divider(),
         ],
       ),
     );

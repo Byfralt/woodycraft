@@ -30,7 +30,7 @@ class _ShowdataState extends State<Showdata> {
             children: [
               TextFormField(
                 initialValue: product.name,
-                decoration: InputDecoration(labelText: 'Nouveau Nom'),
+                decoration: const InputDecoration(labelText: 'Nouveau Nom'),
                 onChanged: (value) {
                   newName = value;
                 },
@@ -38,14 +38,14 @@ class _ShowdataState extends State<Showdata> {
               TextFormField(
                 initialValue: product.price.toString(),
                 keyboardType: TextInputType.number,
-                decoration: InputDecoration(labelText: 'Nouveau prix'),
+                decoration: const InputDecoration(labelText: 'Nouveau prix'),
                 onChanged: (value) {
                   newPrice = double.tryParse(value) ?? product.price;
                 },
               ),
               TextFormField(
                 initialValue: product.description,
-                decoration: InputDecoration(labelText: 'Nouvelle Description'),
+                decoration: const InputDecoration(labelText: 'Nouvelle Description'),
                 onChanged: (value) {
                   newDescription = value;
                 },
@@ -57,14 +57,18 @@ class _ShowdataState extends State<Showdata> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('Annuler'),
+              child: const Text('Annuler', style: TextStyle(
+                color:  Colors.black,
+              ),),
             ),
             ElevatedButton(
               onPressed: () {
                 updateOneProduct(product.id, newName, newPrice, newDescription);
                 Navigator.of(context).pop();
               },
-              child: Text('Enregistrer'),
+              child: const Text('Valider', style: TextStyle(
+                color: Color(0xFF2DC392),
+              ),),
             ),
           ],
         );
@@ -79,12 +83,12 @@ class _ShowdataState extends State<Showdata> {
       builder: (BuildContext context) {
         return SingleChildScrollView(
           child: AlertDialog(
-          content: Column(
+          content: const Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
                 "Voulez-vous supprimer ce produit",
-                style: const TextStyle(
+                style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
                 ),
@@ -96,15 +100,18 @@ class _ShowdataState extends State<Showdata> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('Annuler'),
+              child: const Text('Annuler', style: TextStyle(
+                color: Colors.black,
+              ),),
             ),
             ElevatedButton(
               onPressed: () {
                 deleteOneProduct(id);
                 Navigator.of(context).pop();
               },
-              child: Text('Enregistrer'),
-              ),
+              child: const Text('Supprimer', style: TextStyle(
+                color: Color(0xFF2DC392),
+              ),),),
             ],
           ),
         );
@@ -194,17 +201,22 @@ Future<void> updateOneProduct(int id, String newName, double newPrice, String ne
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            // Image.asset('assets/images/${product.image}'),
+                            // Container(
+                            //   width: 100,
+                            //   height: 100,
+                            //   child: Image.asset('assets/images/${product.image}'),
+                            // ),
+                          
                             Text(
                               product.name,
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 20,
+                                fontSize: 25,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: double.infinity,
-                              height: 15,
+                              height: 5,
                             ),
                             Text(
                               "${product.price.toString()}€",
@@ -213,22 +225,24 @@ Future<void> updateOneProduct(int id, String newName, double newPrice, String ne
                                 fontSize: 20,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: double.infinity,
-                              height: 15,
+                              height: 5,
                             ),
                             Text(
                               product.description,
                               style: const TextStyle(
                                 fontSize: 17,
+                              
                               ),
+                              textAlign: TextAlign.justify,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: double.infinity,
-                              height: 30,
+                              height: 20,
                             ),
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 GestureDetector(
@@ -249,15 +263,16 @@ Future<void> updateOneProduct(int id, String newName, double newPrice, String ne
                                             )
                                           ]
                                         ),
-                                        child: Column(
+                                        child: const Column(
                                           crossAxisAlignment: CrossAxisAlignment.center,
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
-                                            Icon(Icons.delete)
+                                            Icon(Icons.delete, color: const Color(0xFF2DC392),)
                                           ],
                                         )
                                       ),
                                     ),
+                                    SizedBox(width: 20,),
                                     GestureDetector(
                                       onTap: () {
                                         showEditDialog(product);
@@ -276,7 +291,7 @@ Future<void> updateOneProduct(int id, String newName, double newPrice, String ne
                                             )
                                           ]
                                         ),
-                                        child: Column(
+                                        child: const Column(
                                           crossAxisAlignment: CrossAxisAlignment.center,
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
@@ -287,16 +302,16 @@ Future<void> updateOneProduct(int id, String newName, double newPrice, String ne
                                     ),
                                   ],
                                 ),
-                            SizedBox(
+                            const SizedBox(
                               width: double.infinity,
-                              height: 25,
+                              height: 20,
                             ),
-                            Divider(
+                            const Divider(
                               color: Colors.black,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: double.infinity,
-                              height: 25,
+                              height: 20,
                             ),
 
                           ]

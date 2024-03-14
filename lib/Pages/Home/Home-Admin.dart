@@ -120,7 +120,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                                 addOneProduct(newName, newPrice, newDescription, newStock, newImage, newCat);
                                 Navigator.of(context).pop();
                               },
-                              child: const Text('Enregistrer', style: TextStyle(
+                              child: const Text('Valider', style: TextStyle(
                                 color: const Color(0xFF2DC392),
                                 fontSize: 20,
                               ),),
@@ -411,10 +411,10 @@ class _HomeAdminState extends State<HomeAdmin> {
                           height: 10,
                         ),
                         const Text(
-                          'Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l\'imprimerie depuis les années 1500, quand un imprimeur anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte.',
+                          "L'application Admin Woodycraft réinvente l'achat de puzzles en bois 3D. Avec une gestion simplifiée et une interface intuitive, elle redéfinit l'expérience client en ligne. Découvrez une nouvelle façon d'explorer et d'acheter des puzzles artistiques. Bienvenue chez Woodycraft, où la passion rencontre l'innovation.",
                           textAlign: TextAlign.justify,
                           style: TextStyle(
-                            fontSize: 12,
+                            fontSize: 13,
                           ),
                         ),
                         const SizedBox(
@@ -511,7 +511,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                               children: [
                                 GestureDetector(
                                   onTap: () {
-                                    Navigator.pushNamed(context, '/home_admin');
+                                    // ;
                                   },
                                   child: Container(
                                       width:125,

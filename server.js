@@ -127,10 +127,10 @@ app.post('/produits/add', (req, res) => {
 
 app.put('/produits/:productId', (req, res) => {
   const productId = req.params.productId;
-  const { stock, price } = req.body;
+  const { stock } = req.body;
 
-  const query = 'UPDATE produits SET stock = ?, price = ? WHERE id = ?';
-  db.query(query, [stock, price, productId], (err, result) => {
+  const query = 'UPDATE produits SET stock = ? WHERE id = ?';
+  db.query(query, [stock, productId], (err, result) => {
     if (err) {
       throw err;
     }
@@ -248,41 +248,41 @@ app.put('/commandes/:orderId', (req, res) => {
 
 // ______________________ ORDER INFOS ______________________
 
-// app.get('/commandes/:orderId', (req, res) => {
-//   const orderId = req.params.orderId;
-//   db.query(`
-//     SELECT
-//       o.date,
-//       o.session,
-//       c.forename,
-//       c.surname,
-//       c.add1,
-//       c.add2,
-//       c.add3,
-//       c.postcode,
-//       c.phone,
-//       c.email,
-//       oi.order_id,
-//       oi.product_id,
-//       oi.quantity,
-//       p.name AS product_name,
-//       p.price AS product_price
-//     FROM
-//       orders o
-//     INNER JOIN
-//       customers c ON o.customer_id = c.id
-//     INNER JOIN
-//       order_items oi ON o.id = oi.order_id
-//     INNER JOIN
-//       produits p ON oi.product_id = p.id
-//     WHERE
-//       o.id = ?`,
-//     [orderId],
-//     (err, results) => {
-//       if (err) {
-//         throw err;
-//       }
-//       console.log(results);
-//       res.json(results);
-//     });
-// });
+app.get('/commandes/:orderId', (req, res) => {
+  const orderId = req.params.orderId;
+  db.query(`
+    SELECT
+      o.date,
+      o.session,
+      c.forename,
+      c.surname,
+      c.add1,
+      c.add2,
+      c.add3,
+      c.postcode,
+      c.phone,
+      c.email,
+      oi.order_id,
+      oi.product_id,
+      oi.quantity,
+      p.name AS product_name,
+      p.price AS product_price
+    FROM
+      orders o
+    INNER JOIN
+      customers c ON o.customer_id = c.id
+    INNER JOIN
+      order_items oi ON o.id = oi.order_id
+    INNER JOIN
+      produits p ON oi.product_id = p.id
+    WHERE
+      o.id = ?`,
+    [orderId],
+    (err, results) => {
+      if (err) {
+        throw err;
+      }
+      console.log(results);
+      res.json(results);
+    });
+});

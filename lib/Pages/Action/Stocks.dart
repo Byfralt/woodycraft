@@ -1,6 +1,6 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'package:woody/Models/produits.dart';
 import 'package:woody/Module/Drawer.dart';
 
@@ -34,8 +34,8 @@ class _StocksState extends State<Stocks> {
     }
   }
 
-  // Méthode pour mettre à jour le stock et le prix d'un produit
-  Future<void> updateProduct(Product product, int newStock, double newPrice) async {
+  // Méthode pour mettre à jour le stock d'un produit
+  Future<void> updateProduct(Product product, int newStock) async {
     final response = await http.put(
       Uri.parse('http://10.0.2.2:3000/produits/${product.id}'),
       headers: <String, String>{
@@ -43,7 +43,6 @@ class _StocksState extends State<Stocks> {
       },
       body: jsonEncode(<String, dynamic>{
         'stock': newStock,
-        'price': newPrice,
       }),
     );
     if (response.statusCode == 200) {
@@ -55,7 +54,6 @@ class _StocksState extends State<Stocks> {
 
   void showEditDialog(Product product) {
     int newStock = product.stock;
-    double newPrice = product.price;
 
     showDialog(
       context: context,
@@ -73,14 +71,6 @@ class _StocksState extends State<Stocks> {
                   newStock = int.tryParse(value) ?? product.stock;
                 },
               ),
-              TextFormField(
-                initialValue: product.price.toString(),
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(labelText: 'Nouveau prix'),
-                onChanged: (value) {
-                  newPrice = double.tryParse(value) ?? product.price;
-                },
-              ),
             ],
           ),
           actions: [
@@ -92,7 +82,7 @@ class _StocksState extends State<Stocks> {
             ),
             ElevatedButton(
               onPressed: () {
-                updateProduct(product, newStock, newPrice);
+                updateProduct(product, newStock);
                 Navigator.of(context).pop();
               },
               child: Text('Enregistrer'),
@@ -154,13 +144,6 @@ class _StocksState extends State<Stocks> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        Text(
-                          '\$${product.price.toStringAsFixed(2)}',
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
                       ],
                     ),
                     if (stockBas)
@@ -181,7 +164,7 @@ class _StocksState extends State<Stocks> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                   ElevatedButton(
+                    ElevatedButton(
                       onPressed: () {
                         showEditDialog(product);
                       },
@@ -190,10 +173,9 @@ class _StocksState extends State<Stocks> {
                       ),
                       child: Text(
                         'Modifier',
-                        style: TextStyle(color: Colors.white), 
+                        style: TextStyle(color: Colors.white),
                       ),
                     ),
-
                     const Divider(),
                     const SizedBox(height: 20.0),
                   ],

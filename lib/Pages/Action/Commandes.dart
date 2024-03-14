@@ -76,9 +76,9 @@ class _CommandesState extends State<Commandes> {
   }
 
   // Méthode pour mettre à jour le statut de la commande
-  Future<void> updateCommandeStatus(int orderId, String newStatus) async {
+  Future<void> updateCommandeStatus(int order_id, String newStatus) async {
     final response = await http.put(
-      Uri.parse('http://10.0.2.2:3000/commandes/$orderId'),
+      Uri.parse('http://10.0.2.2:3000/commandes/$order_id'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -150,90 +150,97 @@ class _CommandesState extends State<Commandes> {
 
                   dynamic firstCommande = commandesGroup.first;
                   String status = firstCommande['session'];
-                  return Container(
-                    margin: const EdgeInsets.only(bottom: 20.0),
-                    padding: const EdgeInsets.all(20.0),
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Commande $orderId',
-                              style: const TextStyle(
-                                fontSize: 16.0,
-                                fontWeight: FontWeight.bold,
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        '/commandesInfo',
+                        arguments: firstCommande['order_id'],
+                      );
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.only(bottom: 20.0),
+                      padding: const EdgeInsets.all(20.0),
+                      decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Commande $orderId',
+                                style: const TextStyle(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                            Row(
-                              children: [
-                                Row(
-                                  children: [
-                                    Text(
-                                      '${firstCommande['forename']} ${firstCommande['surname']}',
-                                      style: const TextStyle(
-                                        fontSize: 14.0,
+                              Row(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text(
+                                        '${firstCommande['forename']} ${firstCommande['surname']}',
+                                        style: const TextStyle(
+                                          fontSize: 14.0,
+                                        ),
                                       ),
-                                    ),
-                                    const SizedBox(width: 5.0),
-                                    Text(
-                                      'Date: ${formatDate(firstCommande['date'])}',
-                                      style: const TextStyle(
-                                        fontSize: 14.0,
+                                      const SizedBox(width: 5.0),
+                                      Text(
+                                        'Date: ${formatDate(firstCommande['date'])}',
+                                        style: const TextStyle(
+                                          fontSize: 14.0,
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                                
-                                
-                              ],
-                            ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                               
-                               
-                                ElevatedButton(
-                                  onPressed: () {
-                                    updateCommandeStatus(
-                                      firstCommande['order_id'],
-                                      'Valider',
-                                    );
-                                  },
-                                  child: const Text('Valider'),
-                                ),
-                                SizedBox(width: 10,),
-                                ElevatedButton(
-                                  onPressed: () {
-                                    // Mettre à jour le statut de la commande à "En cours"
-                                    updateCommandeStatus(
-                                      firstCommande['order_id'],
-                                      'En cours',
-                                    );
-                                  },
-                                  child: const Text('En cours'),
-                                ),
-                                SizedBox(width: 100,),
-                                Container(
-                                  width: 20,
-                                  height: 20,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: getStatusColor(status),
+                                    ],
                                   ),
-                                ),
-                              ],
-                            ),    
-                            
-                          ],
-                        )
-                      ], 
+                                  
+                                  
+                                ],
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      updateCommandeStatus(
+                                        firstCommande['order_id'],
+                                        'Valider',
+                                      );
+                                    },
+                                    child: const Text('Valider'),
+                                  ),
+                                  SizedBox(width: 10,),
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      // Mettre à jour le statut de la commande à "En cours"
+                                      updateCommandeStatus(
+                                        firstCommande['order_id'],
+                                        'En cours',
+                                      );
+                                    },
+                                    child: const Text('En cours'),
+                                  ),
+                                  SizedBox(width: 100,),
+                                  Container(
+                                    width: 20,
+                                    height: 20,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: getStatusColor(status),
+                                    ),
+                                  ),
+                                ],
+                              ),    
+                              
+                            ],
+                          )
+                        ], 
+                      ),
                     ),
                   );
                 },

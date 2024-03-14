@@ -1,7 +1,10 @@
 
 // main.dart
 import 'package:flutter/material.dart';
+
 import 'package:woody/Pages/Action/Commandes.dart';
+import 'package:woody/Pages/Action/CommandesInfos.dart';
+
 import 'package:woody/Pages/Action/Stocks.dart';
 import 'package:woody/Pages/Action/Showdata.dart';
 import 'package:woody/Pages/Home/Home-Admin.dart';
@@ -42,6 +45,11 @@ class MyApp extends StatelessWidget {
 
         // Route Actions
         '/commandes': (context) => const Commandes(),
+        '/commandesInfo': (context) {
+          final orderId = ModalRoute.of(context)!.settings.arguments as int;
+          return CommandesInfo(orderId: orderId);
+        },
+        
         '/stocks': (context) => const Stocks(),
         '/showdata': (context) => const Showdata(),
         
