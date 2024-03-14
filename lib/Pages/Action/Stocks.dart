@@ -190,6 +190,16 @@
 // }
 
 
+// ________________________________________________________________________________________________________________
+
+
+
+
+
+
+
+
+
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -320,6 +330,7 @@ class _StocksState extends State<Stocks> {
                   // Afficher la notification
                   WidgetsBinding.instance!.addPostFrameCallback((_) {
                     ScaffoldMessenger.of(context).showSnackBar(
+                      
                       SnackBar(
                         content: Text(stockBas
                             ? '📢 Attention, stock bas pour ${product.name}'
@@ -377,3 +388,4 @@ class _StocksState extends State<Stocks> {
     );
   }
 }
+
