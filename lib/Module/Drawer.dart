@@ -6,6 +6,7 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      // ListView est la liste d'éléments
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[

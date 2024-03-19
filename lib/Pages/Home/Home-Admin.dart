@@ -169,6 +169,8 @@ class _HomeAdminState extends State<HomeAdmin> {
     fetchTotalPriceOfCommands();
   }
 
+  // Ajout d'un produit dans la base de données 
+
   Future<void> addOneProduct(String newName, double newPrice, String newDescription, int newStock, String newImage, int newCat) async {
     final response = await http.post(
       Uri.parse('http://10.0.2.2:3000/produits/add'),
@@ -191,7 +193,7 @@ class _HomeAdminState extends State<HomeAdmin> {
     }
   }
 
-  // NOMBRE DE COMMANDE EN COURS
+  // Nombre de commandes en cours
   Future<void> fetchCommandesEnCours() async {
     final response = await http.get(Uri.parse('http://10.0.2.2:3000/orders'));
     if (response.statusCode == 200) {
@@ -203,7 +205,7 @@ class _HomeAdminState extends State<HomeAdmin> {
       throw Exception('Erreur lors de la récupération des commandes');
     }
   }
-  // NOMBRE DE PRODUITS AYANT UN STOCKS BAS (<=5)
+  // Nombre de commandes ayant un stock bas (>5)
   Future<void> fetchLowStockProducts() async {
     final response = await http.get(Uri.parse('http://10.0.2.2:3000/produits'));
     if (response.statusCode == 200) {
@@ -216,7 +218,7 @@ class _HomeAdminState extends State<HomeAdmin> {
       throw Exception('Erreur lors de la récupération des produits');
     }
   }
-  // RECUPÉRATION DES PRIX DES COMMANDES POUR EN FAIRE UN TOTALE + DERNIERE COMMANDE
+  // Recupération des prix des commandes pour en faire un total + dernière commande 
   Future<void> fetchTotalPriceOfCommands() async {
   final response = await http.get(Uri.parse('http://10.0.2.2:3000/orders'));
   if (response.statusCode == 200) {

@@ -1,9 +1,4 @@
 
-
-// ________________________________________________________________________________________________________________
-
-
-
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -58,6 +53,7 @@ class _StocksState extends State<Stocks> {
     }
   }
 
+// Boite de dialogue perméttant la modification du stock d'un produit 
   void showEditDialog(Product product) {
     int newStock = product.stock;
 
