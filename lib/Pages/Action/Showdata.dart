@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:flutter/material.dart';
 import 'package:woody/Models/produits.dart';
 import 'package:woody/Module/Drawer.dart';
@@ -210,12 +212,13 @@ Future<void> updateOneProduct(int id, String newName, double newPrice, String ne
                               width: 100,
                               height: 100,
                               // Vérification des images si une l'image existe dans la base données 
+                              
                               child: product.image != null
                                   ? Image.asset(
                                       'assets/images/${product.image}',
                                       errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
                                         return Container(
-                                          color: Color.fromARGB(255, 207, 207, 207), // Couleur rouge pour le carré en cas d'erreur
+                                          color: Color.fromARGB(255, 230, 230, 230), // Couleur rouge pour le carré en cas d'erreur
                                         );
                                       },
                                     )
