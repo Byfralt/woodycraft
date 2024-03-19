@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      initialRoute: '/home_admin',
+      initialRoute: '/showdata',
       routes: {
 
         // Route avant connexion
@@ -45,11 +45,12 @@ class MyApp extends StatelessWidget {
 
         // Route Actions
         '/commandes': (context) => const Commandes(),
+        // Afficher les informations de la commande avec l'id de la commande 
         '/commandesInfo': (context) {
           final orderId = ModalRoute.of(context)!.settings.arguments as int;
           return CommandesInfo(orderId: orderId);
         },
-        
+        // Route Produits
         '/stocks': (context) => const Stocks(),
         '/showdata': (context) => const Showdata(),
         
@@ -57,6 +58,4 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-// test
 

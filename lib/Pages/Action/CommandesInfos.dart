@@ -23,6 +23,7 @@ class _CommandesInfoState extends State<CommandesInfo> {
   }
 
   Future<void> fetchCommandDetails() async {
+    // Server HTTP Get, Récupération des détails de la commande
     final response = await http.get(Uri.parse('http://10.0.2.2:3000/commandes/${widget.orderId}'));
     if (response.statusCode == 200) {
       setState(() {
@@ -44,6 +45,7 @@ class _CommandesInfoState extends State<CommandesInfo> {
   }
 
   Future<void> validateCommand() async {
+    // Server HTTP Update, Mise à jour du status de la commande -> Valider
     final response = await http.put(
       Uri.parse('http://10.0.2.2:3000/commandes/${widget.orderId}'),
       headers: <String, String>{
@@ -57,7 +59,7 @@ class _CommandesInfoState extends State<CommandesInfo> {
       throw Exception('Échec de la validation de la commande');
     }
   }
-
+// Detail du client sur sa commande 
   Widget buildCustomerDetails() {
     if (commandDetails != null && commandDetails!.isNotEmpty) {
       final firstDetail = commandDetails![0];

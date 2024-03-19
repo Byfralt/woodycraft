@@ -14,7 +14,7 @@ class Showdata extends StatefulWidget {
   
 class _ShowdataState extends State<Showdata> {
   List<Product> products = [];
-
+// Boite de dialogue pour update un produit dans la base de données 
   void showEditDialog(Product product) {
     double newPrice = product.price;
     String newName = product.name;
@@ -76,6 +76,8 @@ class _ShowdataState extends State<Showdata> {
     );
   }
 
+  // Boite de dialogue pour effacer un produit avec une double vérification
+
   void alertDeleteOneProduct(id) {
 
     showDialog(
@@ -128,6 +130,7 @@ class _ShowdataState extends State<Showdata> {
   }
 
   Future<void> fetchProducts() async {
+    // Server HTTP Get récupération des produits 
     final response =
         await http.get(Uri.parse('http://10.0.2.2:3000/produits'));
     if (response.statusCode == 200) {
@@ -141,6 +144,7 @@ class _ShowdataState extends State<Showdata> {
   }
 
   Future<void> deleteOneProduct(id) async {
+    // Server HTTP Delete, suppression d'un produit selon l'id
     final response =
         await http.delete(Uri.parse('http://10.0.2.2:3000/produits/delete/${id}'));
     if (response.statusCode == 200) {
@@ -151,6 +155,7 @@ class _ShowdataState extends State<Showdata> {
   }
 
 Future<void> updateOneProduct(int id, String newName, double newPrice, String newDescription) async {
+  // Server HTTP Update, Mise à jour d'un produit dans la base données
     final response = await http.put(
       Uri.parse('http://10.0.2.2:3000/produits/update/${id}'),
       headers: <String, String>{
@@ -201,12 +206,23 @@ Future<void> updateOneProduct(int id, String newName, double newPrice, String ne
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            // Container(
-                            //   width: 100,
-                            //   height: 100,
-                            //   child: Image.asset('assets/images/${product.image}'),
-                            // ),
-                          
+                            Container(
+                              width: 100,
+                              height: 100,
+                              // Vérification des images si une l'image existe dans la base données 
+                              child: product.image != null
+                                  ? Image.asset(
+                                      'assets/images/${product.image}',
+                                      errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                                        return Container(
+                                          color: Color.fromARGB(255, 207, 207, 207), // Couleur rouge pour le carré en cas d'erreur
+                                        );
+                                      },
+                                    )
+                                  : Container(
+                                      color: Colors.orange, // Couleur orange pour le carré si il n'y a pas d'image
+                                    ),
+                            ),
                             Text(
                               product.name,
                               style: const TextStyle(
