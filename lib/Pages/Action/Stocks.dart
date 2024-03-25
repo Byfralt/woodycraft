@@ -68,7 +68,7 @@ class _StocksState extends State<Stocks> {
               TextFormField(
                 initialValue: product.stock.toString(),
                 keyboardType: TextInputType.number,
-                decoration: InputDecoration(labelText: 'Nouveau stock'),
+                decoration: const InputDecoration(labelText: 'Nouveau stock'),
                 onChanged: (value) {
                   newStock = int.tryParse(value) ?? product.stock;
                 },
@@ -80,14 +80,14 @@ class _StocksState extends State<Stocks> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('Annuler'),
+              child: const Text('Annuler'),
             ),
             ElevatedButton(
               onPressed: () {
                 updateProduct(product, newStock);
                 Navigator.of(context).pop();
               },
-              child: Text('Enregistrer'),
+              child: const Text('Enregistrer'),
             ),
           ],
         );
@@ -140,6 +140,10 @@ class _StocksState extends State<Stocks> {
                   });
                 }
 
+                if (product.stock<5){
+                  
+                }
+
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
@@ -153,14 +157,24 @@ class _StocksState extends State<Stocks> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          'Stock: ${product.stock}',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                        if (product.stock > 5) 
+                          Text(
+                            'Stock: ${product.stock}',
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                        else 
+                          Text(
+                            'Stock: ${product.stock}',
+                            style: const TextStyle(
+                              color: Color.fromARGB(255, 255, 0, 0),
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )      
                       ],
                     ),
                     ElevatedButton(
@@ -170,7 +184,7 @@ class _StocksState extends State<Stocks> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF2DC392),
                       ),
-                      child: Text(
+                      child: const Text(
                         'Modifier',
                         style: TextStyle(color: Colors.white),
                       ),

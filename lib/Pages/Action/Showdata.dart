@@ -228,18 +228,19 @@ class _ShowdataState extends State<Showdata> {
                       Container(
                         width: 100,
                         height: 100,
-                        child: product.image != null
-                            ? Image.asset(
+                        child:Image.asset(
                                 'assets/images/${product.image}',
                                 errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                                  return Container(
-                                    color: const Color.fromARGB(255, 230, 230, 230),
-                                  );
+                                  return Image.network(
+                                  '${product.image}',
+                                    errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                                      return Container(
+                                        color: const Color.fromARGB(255, 230, 230, 230),
+                                    );
+                                    },
+                                  );  
                                 },
                               )
-                              : Container(
-                                  color: Colors.orange,
-                                ),
                               ),
                               Text(
                                 product.name,
